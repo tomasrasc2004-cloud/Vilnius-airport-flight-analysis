@@ -5,10 +5,10 @@ An exploratory and predictive analysis of arrival flights landing at Vilnius Air
 ---
 
 ## Project Overview
-Flight disruptions cascade through airport operations and passenger schedules. Analyzing three weeks of peak summer traffic at VNO, this project aims to answer:
-- Which carriers operating at VNO maintain the highest punctuality standards?
-- How do delay rates fluctuate depending on the scheduled arrival hour and day of the week?
-- To what degree does departure delay dictate final arrival delay?
+Flight disruptions cascade through airport operations and passenger schedules. Analyzing three weeks of peak summer traffic at VNO, this project aims to:
+- Analyse punctuality rates between airlines that operate in VNO airport.
+- Analyse punctuality rates between weekdays and hours.
+- Find a mathematical model that can be used to explain delays.
 
 ---
 
@@ -80,7 +80,9 @@ Flight disruptions cascade through airport operations and passenger schedules. A
 
 ---
 
-## Delay Regression Model
+## Delay modeling
+
+Multiple attempts were made to construct a model explaining arrival differences before arriving at the final approach, though many proved unsuccessful. Initial models evaluated origin airport attributes, specifically investigating the relationship between arrival difference medians and origin airport passenger volumes, geographic distance to VNO, and airport land area. However, each of these airport-level regression models proved statistically insignificant ($p > 0.05$). Another model examined the relationship between aircraft passenger capacity and the arrival difference medians for each aircraft model. While this capacity-based model was statistically significant ($p < 0.05$), its explanatory power was minimal ($R^2 < 0.1$). Additionally, the $\beta_1$ coefficient was positive, counterintuitively implying that larger aircraft passenger capacities correlated with earlier arrivals. Consequently, the analysis shifted to evaluate the direct relationship between departure differences and arrival differences.
 
 ![](Plot.png)
 
