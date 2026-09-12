@@ -82,7 +82,9 @@ Flight disruptions cascade through airport operations and passenger schedules. A
 
 ## Delay Regression Model
 
-![Figure 1.](Plot.png)
+![](Plot.png)
+
+Figure 1. Scatterplot of departure differences and arrival differences alongside regression model line 
 
 A piecewise linear regression analysis modeled the direct relationship between **Departure Difference ($x$, min)** and **Arrival Difference ($y$, min)**:
 
@@ -94,9 +96,14 @@ $$y = \begin{cases} 21.297474 + 0.978108x, & x < -2.789 \\
 * **Model Explanation:**
   * **When $x < -2.789$ (Delayed Departures):** The slope coefficient ($\approx 0.978$) is close to $1$. This indicates a nearly $1:1$ linear propagation—every additional minute of departure delay results in approximately one minute of arrival delay. Aircraft cannot easily make up significant lost time once delayed on the ground.
   * **When $x \ge -2.789$ (On-Time / Early Departures):** The slope drops to a near-zero slightly negative coefficient ($\approx -0.056$). This captures the structural plateau of aviation operations: leaving early does not guarantee an equally early arrival. Air traffic control (ATC), slot restrictions, and gate availability prevent flights from landing more than a standard buffer margin ahead of schedule.
-
+ ---
+  
+## Conclusions
+- **Departure Delay Propagation:** Departure delay is the primary driver of arrival delays ($R^2 = 0.91$). Ground delays propagate almost entirely to arrival times with virtually no capability to recover time in-flight.
+- **Asymmetric Buffer Constraints:** Early departures do not lead to significantly early arrivals. Flight schedules hit an operational ceiling controlled by air traffic control slots and gate capacity.
+- **Temporal Congestion:** Operational delays compound over the course of the day and peak during late-night and early-morning slots (**01:00–02:00**), as well as late-week operations (**Thursday–Friday**). Mid-week days (**Tuesday–Wednesday**) and morning slots (**08:00–12:00**) present the lowest delay risk at VNO.
+- **Carrier Disparities:** Substantial punctuality gaps exist between carriers operating at VNO, with full-service network carriers like SAS and Turkish Airlines demonstrating significantly higher on-time performance than regional operators like airBaltic during the analyzed period.
 ---
 
-## Stack & Methodology
-- **Excel:** Initial data cleaning, variable creation, and multidimensional pivot table aggregations (Airline, Weekday, Scheduled Hour).
-- **R:** Statistical modeling, fitted regression smooths, and exploratory data visualizations.
+## Used tools
+- **Excel, R**
