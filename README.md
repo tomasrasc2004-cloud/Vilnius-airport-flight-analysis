@@ -82,6 +82,8 @@ Flight disruptions cascade through airport operations and passenger schedules. A
 
 ## Delay Regression Model
 
+![Figure 1.](Plot.png)
+
 A piecewise linear regression analysis modeled the direct relationship between **Departure Difference ($x$, min)** and **Arrival Difference ($y$, min)**:
 
 $$\text{Model Fit: } R^2 = 0.91$$
