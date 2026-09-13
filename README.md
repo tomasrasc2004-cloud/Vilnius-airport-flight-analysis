@@ -88,7 +88,7 @@ Multiple attempts were made to construct a model explaining arrival differences 
 
 ![](Plot.png)
 
-Figure 1. Scatterplot of departure differences and arrival differences alongside regression model line 
+Figure 1. Scatterplot of departure differences and arrival differences alongside piecewise regression model line.  
 
 A piecewise linear regression analysis modeled the relationship between **Departure Difference ($x$)** and **Arrival Difference ($y$)**:
 
@@ -102,7 +102,7 @@ $$y = \begin{cases} 21.29 + 0.98x, & x < -2.789 \\
   * **When $x \ge -2.789$ (On-Time / Early Departures):** The slope drops to a near-zero slightly negative coefficient ($\approx -0.05$). This captures the structural plateau of aviation operations: leaving early does not guarantee an equally early arrival. Air traffic control (ATC), slot restrictions, and gate availability prevent flights from landing more than a standard buffer margin ahead of schedule.
 
 **Problems with the model**
-Linear regression models have to meet Gauss-Markov assumptions: residuals should be distributed normally with mean 0 and constant variance (homoskedasticity) and have to be independent. Residuals autocorrelated therefore the model 
+Linear regression models have to meet Gauss-Markov assumptions: residuals should be distributed normally with mean 0 and constant variance (homoskedasticity) and have to be independent. Residuals autocorrelated therefore the model written before is a GLS (Generalised Least Squares) model which assumes that residuals can be autocorrelated. More information about the model creation process can be found in the arrivals.R file.
  
  ---
   
