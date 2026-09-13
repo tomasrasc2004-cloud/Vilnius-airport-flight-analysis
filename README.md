@@ -94,12 +94,16 @@ A piecewise linear regression analysis modeled the relationship between **Depart
 
 $$R^2 = 0.91$$
 
-$$y = \begin{cases} 21.297474 + 0.978108x, & x < -2.789 \\ 
-                    21.297474 - 0.055888x, & x \ge -2.789 \end{cases}$$
+$$y = \begin{cases} 21.29 + 0.98x, & x < -2.789 \\ 
+                    18.47 - 0.05x, & x \ge -2.789 \end{cases}$$
 
 * **Model Explanation:**
   * **When $x < -2.789$ (Delayed Departures):** The slope coefficient ($\approx 0.978$) is close to $1$. This indicates a nearly $1:1$ linear propagation - every additional minute of departure delay results in approximately one minute of arrival delay. Aircraft cannot easily make up significant lost time once delayed on the ground.
-  * **When $x \ge -2.789$ (On-Time / Early Departures):** The slope drops to a near-zero slightly negative coefficient ($\approx -0.056$). This captures the structural plateau of aviation operations: leaving early does not guarantee an equally early arrival. Air traffic control (ATC), slot restrictions, and gate availability prevent flights from landing more than a standard buffer margin ahead of schedule.
+  * **When $x \ge -2.789$ (On-Time / Early Departures):** The slope drops to a near-zero slightly negative coefficient ($\approx -0.05$). This captures the structural plateau of aviation operations: leaving early does not guarantee an equally early arrival. Air traffic control (ATC), slot restrictions, and gate availability prevent flights from landing more than a standard buffer margin ahead of schedule.
+
+**Problems with the model**
+Linear regression models have to meet Gauss-Markov assumptions: residuals should be distributed normally with mean 0 and constant variance (homoskedasticity) and have to be independent. Residuals autocorrelated therefore the model 
+ 
  ---
   
 ## Conclusions
