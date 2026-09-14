@@ -11,11 +11,14 @@ Flight disruptions cascade through airport operations and passenger schedules. A
 - Find a mathematical model that can be used to explain arrival differences.
 
 ---
+## Extraction and data cleaning
+The data for the flights was extracted from FlightRadar24 website using python. After the extraction, some columns were removed and the scheduled arrival date and time column was split into 2 columns. Based on actual landing and scheduled time, the difference column was calculated. From Flightera website departure differences were taken and were added into another column. 
 
+---
 ## Summary Findings
 
-### Airline Performance Breakdown
-* **Threshold Selection:** To prevent small sample bias (where carriers with only a few flights distort percentages), only airlines operating at least 30 flights to VNO during the analysis window were included.
+### Punctuality index by Airline
+* **Selection:** to prevent small sample bias (where carriers with only a few flights distort percentages), only airlines operating at least 30 flights to VNO during the analysis window were included.
 * **Most Punctual:** **SAS** leads performance with **91.67%** on-time arrivals (8.33% delayed), followed closely by **Turkish Airlines** (**88.64%** on-time) and **GetJet Airlines** (**87.80%** on-time).
 * **Highest Delay Rates:** **airBaltic** experienced the highest proportion of late arrivals at **32.65%** delayed (67.35% on-time), followed by **LOT Polish Airlines** at **26.92%** delayed.
 
@@ -35,9 +38,7 @@ Flight disruptions cascade through airport operations and passenger schedules. A
 
 ---
 
-### Operational Timing Trends
-
-* **Day of Week Patterns:** 
+### Punctuality index by week
   * **Best Days:** **Tuesday** (**14.29%** delayed) and **Wednesday** (**15.73%** delayed) exhibit the cleanest operational flow.
   * **Worst Days:** **Thursday** (**25.68%** delayed) and **Friday** (**24.03%** delayed) show the highest accumulation of late arrivals heading into the weekend.
 
@@ -51,10 +52,10 @@ Flight disruptions cascade through airport operations and passenger schedules. A
 | **Friday** | 24.03% | 75.97% |
 | **Thursday** | 25.68% | 74.32% |
 
-* **Hourly Bottlenecks:**
-  * **Threshold Selection:** Similar to the airline analysis, only hourly arrival slots with at least 30 flights were included to avoid small sample distortion.
-  * **Most Punctual Hours:** Mid-day and early morning slots lead performance, peaking at **12:00** (**4.67%** delayed) and **08:00** (**6.90%** delayed).
-  * **Late-Night Delays:** Delays accumulate significantly toward the end of the operational day and into early morning windows, peaking at **02:00** (**60.00%** delayed), **01:00** (**39.58%** delayed), and **21:00** (**31.51%** delayed).
+### Punctuality index by hour
+  * **Selection:** similar to the airline analysis, only hourly arrival slots with at least 30 flights were included to avoid small sample distortion.
+  * **Most punctual Hours:** mid-day and early morning slots lead performance, peaking at **12:00** (**4.67%** delayed) and **08:00** (**6.90%** delayed).
+  * **Most delayed Hours:** highest delay rates happen at night time at **02:00** (**60.00%** delayed), **01:00** (**39.58%** delayed), and **21:00** (**31.51%** delayed).
 
 | Hour | Delayed (%) | On-Time (%) |
 | :---: | :---: | :---: |
@@ -98,8 +99,8 @@ $$y = \begin{cases} 21.29 + 0.98x, & x < -2.789 \\
                     18.47 - 0.05x, & x \ge -2.789 \end{cases}$$
 
 * **Model Explanation:**
-  * **When $x < -2.789$ (Delayed Departures):** The slope coefficient ($\approx 0.978$) is close to $1$. This indicates a nearly $1:1$ linear propagation - every additional minute of departure delay results in approximately one minute of arrival delay. Aircraft cannot easily make up significant lost time once delayed on the ground.
-  * **When $x \ge -2.789$ (On-Time / Early Departures):** The slope drops to a near-zero slightly negative coefficient ($\approx -0.05$). This captures the structural plateau of aviation operations: leaving early does not guarantee an equally early arrival. Air traffic control (ATC), slot restrictions, and gate availability prevent flights from landing more than a standard buffer margin ahead of schedule.
+  * **When $x < -2.789$ (Delayed Departures):** the slope coefficient ($\approx 0.978$) is close to $1$. This indicates a nearly $1:1$ linear propagation - every additional minute of departure delay results in approximately one minute of arrival delay. Aircraft cannot easily make up significant lost time once delayed on the ground.
+  * **When $x \ge -2.789$ (Early Departures):** the slope drops to a near-zero slightly negative coefficient ($\approx -0.05$). This happens because Air traffic control (ATC), slot restrictions, and gate availability prevent flights from landing very early.
 
 * **Problems with the model**
   * Linear regression models have to meet Gauss-Markov assumptions: residuals should be distributed normally with mean 0 and constant variance (homoskedasticity) and have to be independent. Residuals autocorrelated therefore the model written before is a GLS (Generalised Least Squares) model which assumes that residuals can be autocorrelated. More information about the model creation process can be found in the *arrivals.R* file.
@@ -108,10 +109,12 @@ $$y = \begin{cases} 21.29 + 0.98x, & x < -2.789 \\
   
 ## Conclusions
 - **Departure Delay Propagation:** departure delay is the primary driver of arrival delays ($R^2 = 0.91$). Ground delays propagate almost entirely to arrival times with virtually no capability to recover time in-flight.
-- **Asymmetric Buffer Constraints:** early departures do not lead to significantly early arrivals. Flight schedules hit an operational ceiling controlled by air traffic control slots and gate capacity.
+- **Asymmetric Buffer Constraints:** early departures do not lead to significantly early arrivals. It happens because of slot restrictions, gate availability, etc.
 - **Temporal Congestion:** operational delays peak during late-night and early-morning slots (**01:00-02:00**), as well as late-week operations (**Thursday-Friday**). Mid-week days (**Tuesday-Wednesday**) and morning slots (**08:00-12:00**) present the lowest delay rates at VNO.
-- **Carrier Disparities:** Substantial punctuality gaps exist between carriers operating at VNO, with full-service network carriers like SAS and Turkish Airlines demonstrating significantly higher on-time performance than regional operators like airBaltic during the analyzed period.
+- **Airline Punctuality Rates:** every airline that has operated at least 30 flights with VNO airport as destination has a more than 50% punctuality rate. SAS airline holds the highest 91.67% punctuality rate.
 ---
 
 ## Used tools
-- **Excel, R**
+- **Excel:** for the creation of pivot tables and linear models
+- **R**: to create the final linear model and check if it meets Gauss-Markov assumptions.
+- **Python**: for the extraction of data.
