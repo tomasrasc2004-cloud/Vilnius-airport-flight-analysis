@@ -1,6 +1,6 @@
 # Vilnius Airport (VNO) Flight Delay & Punctuality Analysis
 
-An exploratory and predictive analysis of arrival flights landing at Vilnius Airport (VNO) between **July 2 and July 25**. This project combines Excel pivot tables and R statistical modeling to evaluate airline punctuality, operational delay patterns across hours and weekdays, and the relationship between departure and arrival delays.
+An exploratory and predictive analysis of arrival flights landing at Vilnius Airport (VNO) between **July 2 and July 25**. This project combines Excel pivot tables and R statistical modeling to evaluate airline punctuality, operational delay patterns across hours and weekdays, and the relationship between departure and arrival delays. 
 
 ---
 
@@ -12,7 +12,7 @@ Flight disruptions cascade through airport operations and passenger schedules. A
 
 ---
 ## Extraction and data cleaning
-The data for the flights was extracted from FlightRadar24 website using python. After the extraction, some columns were removed and the scheduled arrival date and time column was split into 2 columns. Based on actual landing and scheduled time, the difference column was calculated. From Flightera website departure differences were taken and were added into another column. 
+The data for the flights was extracted from FlightRadar24 website using python. After the extraction, some columns were removed and the scheduled arrival date and time column was split into 2 columns. Based on actual landing and scheduled time, the difference column was calculated. From Flightera website departure differences were taken and were added into another column. Duplicates where removed.
 
 ---
 ## Summary Findings
